@@ -152,41 +152,47 @@
 #                 print(string)
 #         print() if i < len(main_list) - 1 else None
 
-from datetime import datetime
+# from datetime import datetime
+#
+# def is_available_date(booked_dates, date_for_booking):
+#     reserved_dates = list()
+#     required_dates = list()
+#
+#     def check_dates(date_string):
+#         list_dates = date_string.split('-')
+#         list_dates = list(map(lambda x: datetime.strptime(x, '%d.%m.%Y'), list_dates))
+#         return list(map(lambda x: x.toordinal(), list_dates))
+#
+#     for date_string in booked_dates:
+#         if len(date_string) == 10:
+#             date_ = datetime.strptime(date_string, '%d.%m.%Y')
+#             reserved_dates.append(date_.toordinal())
+#         else:
+#             list_dates = check_dates(date_string)
+#             reserved_dates.extend(list(range(list_dates[0], list_dates[-1] + 1)))
+#
+#     if len(date_for_booking) == 10:
+#         required_dates.append(datetime.strptime(date_for_booking, '%d.%m.%Y').toordinal())
+#     else:
+#         list_dates = check_dates(date_for_booking)
+#         required_dates.extend(list(range(list_dates[0], list_dates[-1] + 1)))
+#
+#     print(reserved_dates)
+#     print(required_dates)
+#
+#     set_intersection = set(reserved_dates).intersection(required_dates)
+#     if len(set_intersection) > 0:
+#         return False
+#     else:
+#         return True
+#
+#
+# dates = ['01.11.2021', '05.11.2021-09.11.2021', '12.11.2021', '15.11.2021-21.11.2021']
+# some_date = '22.11.2021-25.11.2021'
+# print(is_available_date(dates, some_date))
 
-def is_available_date(booked_dates, date_for_booking):
-    reserved_dates = list()
-    required_dates = list()
+from datetime import datetime, timedelta
 
-    def check_dates(date_string):
-        list_dates = date_string.split('-')
-        list_dates = list(map(lambda x: datetime.strptime(x, '%d.%m.%Y'), list_dates))
-        return list(map(lambda x: x.toordinal(), list_dates))
+dt = datetime(2021, 11, 4, 13, 6) + timedelta(weeks=1, hours=12)
 
-    for date_string in booked_dates:
-        if len(date_string) == 10:
-            date_ = datetime.strptime(date_string, '%d.%m.%Y')
-            reserved_dates.append(date_.toordinal())
-        else:
-            list_dates = check_dates(date_string)
-            reserved_dates.extend(list(range(list_dates[0], list_dates[-1] + 1)))
-
-    if len(date_for_booking) == 10:
-        required_dates.append(datetime.strptime(date_for_booking, '%d.%m.%Y').toordinal())
-    else:
-        list_dates = check_dates(date_for_booking)
-        required_dates.extend(list(range(list_dates[0], list_dates[-1] + 1)))
-
-    print(reserved_dates)
-    print(required_dates)
-
-    set_intersection = set(reserved_dates).intersection(required_dates)
-    if len(set_intersection) > 0:
-        return False
-    else:
-        return True
-
-
-dates = ['01.11.2021', '05.11.2021-09.11.2021', '12.11.2021', '15.11.2021-21.11.2021']
-some_date = '22.11.2021-25.11.2021'
-print(is_available_date(dates, some_date))
+print(dt.strftime('%d.%m.%Y %H:%M:%S'))
