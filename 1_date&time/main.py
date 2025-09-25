@@ -213,8 +213,37 @@
 # print(next_date.strftime('%d.%m.%Y')
 # print(previous_date.strftime('%d.%m.%Y')
 
+# from datetime import datetime, timedelta
+#
+# time_ = datetime.strptime(input(), '%H:%M:%S')
+# result = timedelta(hours=time_.hour, minutes=time_.minute, seconds=time_.second)
+# print(int(result.total_seconds()))
+
+# from datetime import datetime, timedelta
+#
+# current_time = datetime.strptime(input(), '%H:%M:%S')
+# seconds = timedelta(seconds=int(input()))
+# alarm = current_time + seconds
+# print(alarm.strftime('%H:%M:%S'))
+#
+# from datetime import datetime, timedelta
+#
+# def num_of_sundays(year):
+#     sundays = 0
+#     date_ = datetime(year, 1, 1)
+#     while date_.year == year:
+#         if date_.weekday() == 6:
+#             sundays += 1
+#         date_ = date_ + timedelta(days=1)
+#     return sundays
+#
+# print(num_of_sundays(2022))
+
+
 from datetime import datetime, timedelta
 
-time_ = datetime.strptime(input(), '%H:%M:%S')
-result = timedelta(hours=time_.hour, minutes=time_.minute, seconds=time_.second)
-print(int(result.total_seconds()))
+date_ = datetime.strptime(input(), "%d.%m.%Y")
+key_day = [i for i in range(11) if i != 1]
+for i, day in zip(range(10), key_day):
+    date_ += timedelta(days=day)
+    print(date_.strftime("%d.%m.%Y"))
