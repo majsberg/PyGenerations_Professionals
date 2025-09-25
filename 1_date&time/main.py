@@ -191,8 +191,30 @@
 # some_date = '22.11.2021-25.11.2021'
 # print(is_available_date(dates, some_date))
 
+# from datetime import datetime, timedelta
+# dt = datetime(2021, 11, 4, 13, 6) + timedelta(weeks=1, hours=12)
+# print(dt.strftime('%d.%m.%Y %H:%M:%S'))
+
+# from datetime import date, timedelta
+#
+# today = date(2021, 11, 4)
+# birthday = date(2022, 10, 6)
+#
+# days = (birthday - today).days
+#
+# print(days)
+
+# from datetime import datetime, timedelta
+#
+# date_ = datetime.strptime(input(), '%d.%m.%Y')
+# next_date = date_ + timedelta(days=1)
+# previous_date = date_ - timedelta(days=1)
+#
+# print(next_date.strftime('%d.%m.%Y')
+# print(previous_date.strftime('%d.%m.%Y')
+
 from datetime import datetime, timedelta
 
-dt = datetime(2021, 11, 4, 13, 6) + timedelta(weeks=1, hours=12)
-
-print(dt.strftime('%d.%m.%Y %H:%M:%S'))
+time_ = datetime.strptime(input(), '%H:%M:%S')
+result = timedelta(hours=time_.hour, minutes=time_.minute, seconds=time_.second)
+print(int(result.total_seconds()))
