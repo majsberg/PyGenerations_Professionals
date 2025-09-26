@@ -240,10 +240,46 @@
 # print(num_of_sundays(2022))
 
 
+# from datetime import datetime, timedelta
+#
+# date_ = datetime.strptime(input(), "%d.%m.%Y")
+# key_day = [i for i in range(11) if i != 1]
+# for i, day in zip(range(10), key_day):
+#     date_ += timedelta(days=day)
+#     print(date_.strftime("%d.%m.%Y"))
+
+# from datetime import datetime
+#
+# list_dates = [datetime.strptime(i, '%d.%m.%Y') for i in input().split(' ')]
+# main_list = list()
+# for i in range(len(list_dates) - 1):
+#     main_list.append(abs(list_dates[i+1] - list_dates[i]).days)
+#
+# print(main_list)
+
+# from datetime import datetime, timedelta
+#
+# def fill_up_missing_dates(dates):
+#     list_dates = [datetime.strptime(i, '%d.%m.%Y') for i in dates]
+#     result_list = list()
+#
+#     add_date = min(list_dates)
+#     while add_date <= max(list_dates):
+#         result_list.append(add_date)
+#         add_date += timedelta(days=1)
+#
+#     return list(map(lambda x: x.strftime('%d.%m.%Y'), result_list))
+#
+# dates = ['01.11.2021', '04.11.2021', '09.11.2021', '15.11.2021']
+#
+# print(fill_up_missing_dates(dates))
+
 from datetime import datetime, timedelta
 
-date_ = datetime.strptime(input(), "%d.%m.%Y")
-key_day = [i for i in range(11) if i != 1]
-for i, day in zip(range(10), key_day):
-    date_ += timedelta(days=day)
-    print(date_.strftime("%d.%m.%Y"))
+time_start = datetime.strptime(input(), '%H:%M')
+time_end = datetime.strptime(input(), '%H:%M')
+
+begin_time = time_start
+while begin_time + timedelta(minutes=45) <= time_end:
+    print(begin_time.strftime('%H:%M'), (begin_time + timedelta(minutes=45)).strftime('%H:%M'))
+    begin_time = begin_time + timedelta(minutes=45) + timedelta(minutes=10)
