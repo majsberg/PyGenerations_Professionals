@@ -2,8 +2,7 @@
 #
 # date_list = [date.fromisoformat(input()) for i in range(2)]
 # print(min(date_list).strftime("%d-%m (%Y)"))
-
-
+from calendar import month
 # from datetime import date
 #
 # n = int(input())
@@ -274,12 +273,42 @@
 #
 # print(fill_up_missing_dates(dates))
 
+# from datetime import datetime, timedelta
+#
+# time_start = datetime.strptime(input(), '%H:%M')
+# time_end = datetime.strptime(input(), '%H:%M')
+#
+# begin_time = time_start
+# while begin_time + timedelta(minutes=45) <= time_end:
+#     print(begin_time.strftime('%H:%M'), (begin_time + timedelta(minutes=45)).strftime('%H:%M'))
+#     begin_time = begin_time + timedelta(minutes=45) + timedelta(minutes=10)
+
+# from datetime import date, time, datetime, timedelta
+#
+# data = [('07:14', '08:46'),
+#         ('09:01', '09:37'),
+#         ('10:00', '11:43'),
+#         ('12:13', '13:49'),
+#         ('15:00', '15:19'),
+#         ('15:58', '17:24'),
+#         ('17:57', '19:21'),
+#         ('19:30', '19:59')]
+#
+#
+# minutes = sum(list(map(lambda x: (datetime.strptime(x[1], '%H:%M') - datetime.strptime(x[0], '%H:%M')).seconds / 60, data)))
+# print(int(minutes))
+
 from datetime import datetime, timedelta
 
-time_start = datetime.strptime(input(), '%H:%M')
-time_end = datetime.strptime(input(), '%H:%M')
+dict_ = dict(zip([i for i in range(1, 8)], [0 for i in range(7)]))
 
-begin_time = time_start
-while begin_time + timedelta(minutes=45) <= time_end:
-    print(begin_time.strftime('%H:%M'), (begin_time + timedelta(minutes=45)).strftime('%H:%M'))
-    begin_time = begin_time + timedelta(minutes=45) + timedelta(minutes=10)
+start = datetime(1, 1, 1)
+end = datetime(9999, 12, 30)
+
+while start <= end:
+    if start.day == 13:
+        dict_[start.isoweekday()] += 1
+    start += timedelta(days=1)
+
+print(*dict_.values(), sep='\n')
+
