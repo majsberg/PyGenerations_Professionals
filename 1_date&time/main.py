@@ -298,17 +298,77 @@ from calendar import month
 # minutes = sum(list(map(lambda x: (datetime.strptime(x[1], '%H:%M') - datetime.strptime(x[0], '%H:%M')).seconds / 60, data)))
 # print(int(minutes))
 
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
+#
+# dict_ = dict(zip([i for i in range(1, 8)], [0 for i in range(7)]))
+#
+# start = datetime(1, 1, 1)
+# end = datetime(9999, 12, 30)
+#
+# while start <= end:
+#     if start.day == 13:
+#         dict_[start.isoweekday()] += 1
+#     start += timedelta(days=1)
+#
+# print(*dict_.values(), sep='\n')
 
-dict_ = dict(zip([i for i in range(1, 8)], [0 for i in range(7)]))
+# from datetime import datetime
+#
+# def checking_time(date):
+#     date_ = datetime.strptime(date, "%d.%m.%Y %H:%M")
+#     if date_.isoweekday() > 5:
+#         if 10 <= date_.hour <= 17:
+#             return int((datetime(date_.year, date_.month, date_.day, 18, 0) - date_).seconds / 60)
+#         else:
+#             return "Магазин не работает"
+#     else:
+#         if 9 <= date_.hour <= 20:
+#             return int((datetime(date_.year, date_.month, date_.day, 21, 0) - date_).seconds / 60)
+#         else:
+#             return "Магазин не работает"
+#
+# print(checking_time('07.11.2021 10:00'))
 
-start = datetime(1, 1, 1)
-end = datetime(9999, 12, 30)
+# from datetime import datetime, timedelta
+#
+# start_date = datetime.strptime(input(), "%d.%m.%Y")
+# end_date = datetime.strptime(input(), "%d.%m.%Y")
+#
+# if start_date.month + start_date.day % 2 == 0:
+#     start_date = start_date + timedelta(days=1)
+#     print(start_date)
+#
+# while start_date < end_date:
+#
+#     if start_date.isoweekday() != 1 or start_date.isoweekday() != 4:
+#         print(start_date.strftime("%d.%m.%Y"), start_date.isoweekday())
+#     start_date = start_date + timedelta(days=3)
 
-while start <= end:
-    if start.day == 13:
-        dict_[start.isoweekday()] += 1
-    start += timedelta(days=1)
+# from datetime import datetime
+#
+# list_ = [[i for i in input().split(' ')] for j in range(int(input()))]
+# list_ = list(map(lambda x: (x[0], x[1], datetime.strptime(x[2], "%d.%m.%Y")), list_))
+#
+# dict_ = dict()
+# for each in list_:
+#     dict_.setdefault(each[2], []).append(each[:2])
+#
+# key = max(dict_)
+# print(type(key))
 
-print(*dict_.values(), sep='\n')
+from datetime import datetime
 
+list_ = [[i for i in input().split(' ')] for j in range(int(input()))]
+list_ = list(map(lambda x: (x[0], x[1], datetime.strptime(x[2], "%d.%m.%Y")), list_))
+
+dict_ = dict()
+for each in list_:
+    dict_.setdefault(each[2], []).append(each[:2])
+
+max_employee = len(max(list(dict_.values()), key=lambda x: len(x)))
+
+list_res = list(filter(lambda x: len(x[1]) == max_employee, list(dict_.items())))
+list_res.sort(key=lambda x: x[0])
+
+for each in list_res:
+    print(each[0].strftime("%d.%m.%Y"))
