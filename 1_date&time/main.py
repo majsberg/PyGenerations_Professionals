@@ -356,19 +356,88 @@ from calendar import month
 # key = max(dict_)
 # print(type(key))
 
-from datetime import datetime
+# from datetime import datetime
+#
+# list_ = [[i for i in input().split(' ')] for j in range(int(input()))]
+# list_ = list(map(lambda x: (x[0], x[1], datetime.strptime(x[2], "%d.%m.%Y")), list_))
+#
+# dict_ = dict()
+# for each in list_:
+#     dict_.setdefault(each[2], []).append(each[:2])
+#
+# max_employee = len(max(list(dict_.values()), key=lambda x: len(x)))
+#
+# list_res = list(filter(lambda x: len(x[1]) == max_employee, list(dict_.items())))
+# list_res.sort(key=lambda x: x[0])
+#
+# for each in list_res:
+#     print(each[0].strftime("%d.%m.%Y"))
 
-list_ = [[i for i in input().split(' ')] for j in range(int(input()))]
-list_ = list(map(lambda x: (x[0], x[1], datetime.strptime(x[2], "%d.%m.%Y")), list_))
+# from datetime import datetime, timedelta
+#
+# date_now = datetime.strptime(input(), "%d.%m.%Y")
+# employees_list = [[j for j in input().split(' ')] for i in range(int(input()))]
+# employees_list = list(map(lambda x: (x[0], x[1], datetime.strptime(x[2], "%d.%m.%Y")), employees_list))
+# next_week = [date_now + timedelta(days=i) for i in range(1, 8)]
+# next_week = list(map(lambda x: (x.day, x.month), next_week))
+#
+# next_birthdays = list()
+# for each in employees_list:
+#     if (each[2].day, each[2].month) in next_week:
+#         next_birthdays.append(each)
+#
+# if len(next_birthdays) > 0:
+#     print(*max(next_birthdays, key=lambda x: x[2])[:2])
+# else:
+#     print("Дни рождения не планируются")
 
-dict_ = dict()
-for each in list_:
-    dict_.setdefault(each[2], []).append(each[:2])
+from datetime import datetime, timedelta
 
-max_employee = len(max(list(dict_.values()), key=lambda x: len(x)))
 
-list_res = list(filter(lambda x: len(x[1]) == max_employee, list(dict_.items())))
-list_res.sort(key=lambda x: x[0])
+def choose_plural(amount, declensions):
+    keys = list(range(10))
+    values_n = [declensions[2], declensions[0], declensions[1], declensions[1], declensions[1], declensions[2],
+                declensions[2], declensions[2], declensions[2], declensions[2]]
+    values_m = [declensions[2] for i in range(10)]
 
-for each in list_res:
-    print(each[0].strftime("%d.%m.%Y"))
+    num_dict_n = dict(zip(keys, values_n))
+    num_dict_m = dict(zip(keys, values_m))
+
+    if amount > 10 and str(amount)[-2] == '1':
+
+        return f'{amount} {num_dict_m.get(amount % 10)}'
+    else:
+        return f'{amount} {num_dict_n.get(amount % 10)}'
+
+
+release_date = datetime(2022, 11, 8, 12, 0)
+today = datetime.strptime(input(), "%d.%m.%Y %H:%M")
+
+if release_date > today:
+    result = release_date - today
+
+# print(result)
+# print(result.days)
+# print(result.seconds)
+try:
+    if result.days > 0 and result.seconds == 0:
+        # print(result.days)
+        print(f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))}")
+    elif result.days > 0 and result.seconds > 0:
+        # print(result.days, result.seconds // 3600)
+        print(
+            f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))} и {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
+    elif result.days < 1:
+        if result.seconds // 3600 > 0 and int(result.seconds % 3600 / 60) > 0:
+            # print(result.seconds // 3600, int(result.seconds % 3600 / 60))
+            print(
+                f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))} и {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
+        elif result.seconds // 3600 > 0:
+            # print(result.seconds // 3600)
+            print(f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
+        elif int(result.seconds % 3600 / 60) > 0:
+            # print(int(result.seconds % 3600 / 60))
+            print(
+                f"До выхода курса осталось: {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
+except:
+    print("Курс уже вышел!")
