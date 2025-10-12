@@ -2,6 +2,7 @@
 #
 # date_list = [date.fromisoformat(input()) for i in range(2)]
 # print(min(date_list).strftime("%d-%m (%Y)"))
+import statistics
 from calendar import month
 # from datetime import date
 #
@@ -391,53 +392,159 @@ from calendar import month
 # else:
 #     print("Дни рождения не планируются")
 
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
+#
+#
+# def choose_plural(amount, declensions):
+#     keys = list(range(10))
+#     values_n = [declensions[2], declensions[0], declensions[1], declensions[1], declensions[1], declensions[2],
+#                 declensions[2], declensions[2], declensions[2], declensions[2]]
+#     values_m = [declensions[2] for i in range(10)]
+#
+#     num_dict_n = dict(zip(keys, values_n))
+#     num_dict_m = dict(zip(keys, values_m))
+#
+#     if amount > 10 and str(amount)[-2] == '1':
+#
+#         return f'{amount} {num_dict_m.get(amount % 10)}'
+#     else:
+#         return f'{amount} {num_dict_n.get(amount % 10)}'
+#
+#
+# release_date = datetime(2022, 11, 8, 12, 0)
+# today = datetime.strptime(input(), "%d.%m.%Y %H:%M")
+#
+# if release_date > today:
+#     result = release_date - today
+#
+# # print(result)
+# # print(result.days)
+# # print(result.seconds)
+# try:
+#     if result.days > 0 and result.seconds == 0:
+#         # print(result.days)
+#         print(f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))}")
+#     elif result.days > 0 and result.seconds > 0:
+#         # print(result.days, result.seconds // 3600)
+#         print(
+#             f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))} и {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
+#     elif result.days < 1:
+#         if result.seconds // 3600 > 0 and int(result.seconds % 3600 / 60) > 0:
+#             # print(result.seconds // 3600, int(result.seconds % 3600 / 60))
+#             print(
+#                 f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))} и {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
+#         elif result.seconds // 3600 > 0:
+#             # print(result.seconds // 3600)
+#             print(f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
+#         elif int(result.seconds % 3600 / 60) > 0:
+#             # print(int(result.seconds % 3600 / 60))
+#             print(
+#                 f"До выхода курса осталось: {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
+# except:
+#     print("Курс уже вышел!")
 
 
-def choose_plural(amount, declensions):
-    keys = list(range(10))
-    values_n = [declensions[2], declensions[0], declensions[1], declensions[1], declensions[1], declensions[2],
-                declensions[2], declensions[2], declensions[2], declensions[2]]
-    values_m = [declensions[2] for i in range(10)]
+# from datetime import date, timedelta
+# import calendar
+#
+# def get_all_mondays(year):
+#     dates = list()
+#     date_ = date(year, 1, 1)
+#     while date_.year == year:
+#         dates.append(date_)
+#         date_ = date_ + timedelta(days=1)
+#
+#     mondays = list()
+#     for each in dates:
+#         if calendar.weekday(each.year, each.month, each.day) == 0:
+#             mondays.append(each)
+#
+#     return mondays
+#
+# print(get_all_mondays(2021))
 
-    num_dict_n = dict(zip(keys, values_n))
-    num_dict_m = dict(zip(keys, values_m))
 
-    if amount > 10 and str(amount)[-2] == '1':
+# from datetime import date, timedelta
+# import calendar
+#
+# year = int(input())
+# if calendar.isleap:
+#     days_year = [date(year, 1, 1) + timedelta(days=i) for i in range(366)]
+# else:
+#     days_year = [date(year, 1, 1) + timedelta(days=i) for i in range(365)]
+#
+# dict_thursdays = dict()
+#
+# for each in days_year:
+#     if calendar.weekday(each.year, each.month, each.day) == 3:
+#         dict_thursdays.setdefault(each.month, []).append(each)
+#
+# for dates_ in dict_thursdays.values():
+#     print(dates_[2].strftime("%d.%m.%Y"))
 
-        return f'{amount} {num_dict_m.get(amount % 10)}'
-    else:
-        return f'{amount} {num_dict_n.get(amount % 10)}'
+# import csv
+#
+# with open("student_counts.csv", encoding="utf-8") as input_f, open("sorted_student_counts.csv", "w", encoding="utf-8", newline="") as output_f:
+#     reader = csv.reader(input_f)
+#     #print(list(reader))
+#
+#     list_ = list(reader)
+#     headers = list_[0][1:]
+#     headers = list(map(lambda x: x.split('-'), headers))
+#     headers = list(map(lambda x: (int(x[0]), x[1]), headers))
+#     print(headers)
+#     print()
+#     sorted_headers = sorted(headers, key=lambda x: (x[0], x[1]))
+#     print(sorted_headers)
+#
+#     indexes = list()
+#     for each in sorted_headers:
+#         for index, every in enumerate(headers):
+#             if each == every:
+#                 print(index)
+#                 indexes.append(index)
+#
+#     print()
+#     main_list = list()
+#     for each in indexes:
+#         inner_list = list()
+#         for i in range(len(list_)):
+#            counts = list_[i][each + 1]
+#            #print(counts)
+#            inner_list.append(counts)
+#         main_list.append(inner_list.copy())
+#
+#     years = list(range(2000, 2022))
+#     years.insert(0, 'year')
+#     main_list.insert(0, years)
+#     print(main_list)
+#     print()
+#
+#     # for each in main_list:
+#     #     print(each)
+#
+#     writer = csv.writer(output_f)
+#
+#     for j in range(len(years)):
+#         sub_list = list()
+#         for i in range(len(main_list)):
+#             sub_list.append(main_list[i][j])
+#         writer.writerow(sub_list.copy())
 
+import csv
 
-release_date = datetime(2022, 11, 8, 12, 0)
-today = datetime.strptime(input(), "%d.%m.%Y %H:%M")
+with open("prices.csv", encoding="utf-8") as f_input:
+    reader = csv.DictReader(f_input, delimiter=";")
 
-if release_date > today:
-    result = release_date - today
+    prices = list(reader)
+    products = reader.fieldnames[1:]
 
-# print(result)
-# print(result.days)
-# print(result.seconds)
-try:
-    if result.days > 0 and result.seconds == 0:
-        # print(result.days)
-        print(f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))}")
-    elif result.days > 0 and result.seconds > 0:
-        # print(result.days, result.seconds // 3600)
-        print(
-            f"До выхода курса осталось: {choose_plural(result.days, ('день', 'дня', 'дней'))} и {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
-    elif result.days < 1:
-        if result.seconds // 3600 > 0 and int(result.seconds % 3600 / 60) > 0:
-            # print(result.seconds // 3600, int(result.seconds % 3600 / 60))
-            print(
-                f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))} и {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
-        elif result.seconds // 3600 > 0:
-            # print(result.seconds // 3600)
-            print(f"До выхода курса осталось: {choose_plural(result.seconds // 3600, ('час', 'часа', 'часов'))}")
-        elif int(result.seconds % 3600 / 60) > 0:
-            # print(int(result.seconds % 3600 / 60))
-            print(
-                f"До выхода курса осталось: {choose_plural(int(result.seconds % 3600 / 60), ('минута', 'минуты', 'минут'))}")
-except:
-    print("Курс уже вышел!")
+    result_dict = dict()
+    for product in products:
+        inner_list = list()
+        for row in prices:
+            inner_list.append((f'{row["Магазин"]}', int(row[product])))
+        min_price = min(inner_list, key=lambda x: x[1])
+        result_dict[product] = min_price
+    result = min(result_dict.items(), key=lambda x: (x[1][1], x[0]))
+    print(f'{result[0]}: {result[1][0]}')
