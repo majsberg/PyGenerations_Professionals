@@ -531,20 +531,54 @@ from calendar import month
 #             sub_list.append(main_list[i][j])
 #         writer.writerow(sub_list.copy())
 
-import csv
+# import csv
+#
+# with open("prices.csv", encoding="utf-8") as f_input:
+#     reader = csv.DictReader(f_input, delimiter=";")
+#
+#     prices = list(reader)
+#     products = reader.fieldnames[1:]
+#
+#     result_dict = dict()
+#     for product in products:
+#         inner_list = list()
+#         for row in prices:
+#             inner_list.append((f'{row["Магазин"]}', int(row[product])))
+#         min_price = min(inner_list, key=lambda x: x[1])
+#         result_dict[product] = min_price
+#     result = min(result_dict.items(), key=lambda x: (x[1][1], x[0]))
+#     print(f'{result[0]}: {result[1][0]}')
 
-with open("prices.csv", encoding="utf-8") as f_input:
-    reader = csv.DictReader(f_input, delimiter=";")
+# import json
+# import csv
+#
+# with open("students.json", encoding="utf-8") as file_in, open("data.csv", "w", encoding="utf-8") as file_out:
+#     students = json.load(file_in)
+#     filtered_list = list(filter(lambda student: student["age"] >= 18 and student["progress"] >= 75, students))
+#     result_list = list(map(lambda student: {key: student[key] for key in student if key == 'name' or key == 'phone'}, filtered_list))
+#     result_list.sort(key=lambda student: student["name"])
+#
+#     headers = result_list[0].keys()
+#     writer = csv.DictWriter(file_out, fieldnames=headers)
+#     writer.writeheader()
+#     writer.writerows(result_list)
 
-    prices = list(reader)
-    products = reader.fieldnames[1:]
+import json
+from datetime import datetime, time
 
-    result_dict = dict()
-    for product in products:
-        inner_list = list()
-        for row in prices:
-            inner_list.append((f'{row["Магазин"]}', int(row[product])))
-        min_price = min(inner_list, key=lambda x: x[1])
-        result_dict[product] = min_price
-    result = min(result_dict.items(), key=lambda x: (x[1][1], x[0]))
-    print(f'{result[0]}: {result[1][0]}')
+with open("pools.json", encoding="utf-8") as f_in:
+    pools = json.load(f_in)
+    suitable_pools = list()
+    for pool in pools:
+        open_hours_str = pool["WorkingHoursSummer"]["Понедельник"].split('-')
+        open_hours = list(map(lambda x: datetime.strptime(x, "%H:%M").time(), open_hours_str))
+        #print(open_hours)
+
+        if open_hours[0] <= time(10, 0) and open_hours[1] >= time(12,0):
+            suitable_pools.append(pool)
+        #print(suitable_pools)
+
+    result = sorted(suitable_pools, key= lambda x: (x["DimensionsSummer"]["Length"], x["DimensionsSummer"]["Width"]), reverse=True)
+    result_pool = result[0]
+    print(f'{result_pool["DimensionsSummer"]["Length"]}x{result_pool["DimensionsSummer"]["Width"]}')
+    print(f'{result_pool["Address"]}')
