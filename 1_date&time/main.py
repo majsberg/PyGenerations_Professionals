@@ -563,22 +563,22 @@ from calendar import month
 #     writer.writeheader()
 #     writer.writerows(result_list)
 
-import json
-from datetime import datetime, time
-
-with open("pools.json", encoding="utf-8") as f_in:
-    pools = json.load(f_in)
-    suitable_pools = list()
-    for pool in pools:
-        open_hours_str = pool["WorkingHoursSummer"]["Понедельник"].split('-')
-        open_hours = list(map(lambda x: datetime.strptime(x, "%H:%M").time(), open_hours_str))
-        #print(open_hours)
-
-        if open_hours[0] <= time(10, 0) and open_hours[1] >= time(12,0):
-            suitable_pools.append(pool)
-        #print(suitable_pools)
-
-    result = sorted(suitable_pools, key= lambda x: (x["DimensionsSummer"]["Length"], x["DimensionsSummer"]["Width"]), reverse=True)
-    result_pool = result[0]
-    print(f'{result_pool["DimensionsSummer"]["Length"]}x{result_pool["DimensionsSummer"]["Width"]}')
-    print(f'{result_pool["Address"]}')
+# import json
+# from datetime import datetime, time
+#
+# with open("pools.json", encoding="utf-8") as f_in:
+#     pools = json.load(f_in)
+#     suitable_pools = list()
+#     for pool in pools:
+#         open_hours_str = pool["WorkingHoursSummer"]["Понедельник"].split('-')
+#         open_hours = list(map(lambda x: datetime.strptime(x, "%H:%M").time(), open_hours_str))
+#         #print(open_hours)
+#
+#         if open_hours[0] <= time(10, 0) and open_hours[1] >= time(12,0):
+#             suitable_pools.append(pool)
+#         #print(suitable_pools)
+#
+#     result = sorted(suitable_pools, key= lambda x: (x["DimensionsSummer"]["Length"], x["DimensionsSummer"]["Width"]), reverse=True)
+#     result_pool = result[0]
+#     print(f'{result_pool["DimensionsSummer"]["Length"]}x{result_pool["DimensionsSummer"]["Width"]}')
+#     print(f'{result_pool["Address"]}')
