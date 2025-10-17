@@ -582,3 +582,58 @@ from calendar import month
 #     result_pool = result[0]
 #     print(f'{result_pool["DimensionsSummer"]["Length"]}x{result_pool["DimensionsSummer"]["Width"]}')
 #     print(f'{result_pool["Address"]}')
+
+
+# import csv
+# import json
+# from datetime import datetime
+#
+# with open("exam_results.csv", encoding="utf-8") as f_in, open("best_scores.json", "w", encoding="utf-8") as f_out:
+#     rows = csv.DictReader(f_in)
+#
+#     dict_all_results = dict()
+#     for row in rows:
+#         inner_list = [row["name"], row["surname"], int(row["score"]), datetime.strptime(row["date_and_time"], "%Y-%m-%d %H:%M:%S")]
+#         dict_all_results.setdefault(row["email"], []).append(inner_list)
+#     for each in dict_all_results:
+#         dict_all_results[each] = max(dict_all_results[each], key=lambda x: (x[2], x[3]))
+#     print(dict_all_results)
+#
+#     emails_sorted = sorted(dict_all_results)
+#     result_list = list()
+#     print(emails_sorted)
+#     for email in emails_sorted:
+#         inner_dict = dict()
+#         inner_dict["name"] = dict_all_results[email][0]
+#         inner_dict["surname"] = dict_all_results[email][1]
+#         inner_dict["best_score"] = dict_all_results[email][2]
+#         inner_dict["date_and_time"] = dict_all_results[email][3].strftime("%Y-%m-%d %H:%M:%S")
+#         inner_dict["email"] = email
+#         result_list.append(inner_dict)
+#
+#     json.dump(result_list, f_out)
+
+import calendar
+import tkinter as tk
+from tkinter import ttk
+
+app = tk.Tk()
+app.attributes('-topmost', True)
+
+three = ttk.Treeview(app, columns=list(range(14)), show='headings', height=10)
+LIST_MONTHS = tuple(calendar.month_name[1:])
+three.heading(0, text='Провайдер')
+three.column(0, width=150)
+for i, month in zip(range(1, 13), LIST_MONTHS):
+    three.heading(i, text=month)
+    three.column(i, width=100)
+
+LIST_PROVIDERS = tuple(["УК 'ОРИОН'", "МОЭК", "Московодканал", "ЕПД", "Мосэнергосбыт", "108Телеком"])
+data = [[1000 for i in range(12)] for j in range(len(LIST_PROVIDERS))]
+print(data)
+
+for provider, item in zip(LIST_PROVIDERS, data):
+    three.insert("", "end", values=(provider, *item))
+
+three.pack(fill='both', expand=True)
+app.mainloop()
