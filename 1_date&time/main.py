@@ -613,27 +613,65 @@ from calendar import month
 #
 #     json.dump(result_list, f_out)
 
-import calendar
-import tkinter as tk
-from tkinter import ttk
+# import calendar
+# import tkinter as tk
+# from tkinter import ttk
+#
+# app = tk.Tk()
+# app.attributes('-topmost', True)
+#
+# three = ttk.Treeview(app, columns=list(range(14)), show='headings', height=10)
+# LIST_MONTHS = tuple(calendar.month_name[1:])
+# three.heading(0, text='Провайдер')
+# three.column(0, width=150)
+# for i, month in zip(range(1, 13), LIST_MONTHS):
+#     three.heading(i, text=month)
+#     three.column(i, width=100)
+#
+# LIST_PROVIDERS = tuple(["УК 'ОРИОН'", "МОЭК", "Московодканал", "ЕПД", "Мосэнергосбыт", "108Телеком"])
+# data = [[1000 for i in range(12)] for j in range(len(LIST_PROVIDERS))]
+# print(data)
+#
+# for provider, item in zip(LIST_PROVIDERS, data):
+#     three.insert("", "end", values=(provider, *item))
+#
+# three.pack(fill='both', expand=True)
+# app.mainloop()
 
-app = tk.Tk()
-app.attributes('-topmost', True)
+# import json
+#
+# with open("food_services.json", encoding="utf-8") as f_input:
+#     data = json.load(f_input)
+#
+#     districts_dict = dict()
+#     companies_dict = dict()
+#
+#     for item in data:
+#         districts_dict[item["District"]] = districts_dict.setdefault(item["District"], 0) + 1
+#         if item["IsNetObject"] == "да":
+#             companies_dict[item["OperatingCompany"]] = companies_dict.setdefault(item["OperatingCompany"], 0) + 1
+#     max_counts = max(districts_dict.items(), key=lambda x: x[1])
+#     max_operating_company = max(companies_dict.items(), key=lambda x: x[1])
+#
+#     print(f'{max_counts[0]}: {max_counts[1]}')
+#     print(f'{max_operating_company[0]}: {max_operating_company[1]}')
+#
 
-three = ttk.Treeview(app, columns=list(range(14)), show='headings', height=10)
-LIST_MONTHS = tuple(calendar.month_name[1:])
-three.heading(0, text='Провайдер')
-three.column(0, width=150)
-for i, month in zip(range(1, 13), LIST_MONTHS):
-    three.heading(i, text=month)
-    three.column(i, width=100)
+import json
 
-LIST_PROVIDERS = tuple(["УК 'ОРИОН'", "МОЭК", "Московодканал", "ЕПД", "Мосэнергосбыт", "108Телеком"])
-data = [[1000 for i in range(12)] for j in range(len(LIST_PROVIDERS))]
-print(data)
+with open("food_services.json", encoding="utf-8") as f_input:
+    data = json.load(f_input)
 
-for provider, item in zip(LIST_PROVIDERS, data):
-    three.insert("", "end", values=(provider, *item))
+    types_dict = dict()
 
-three.pack(fill='both', expand=True)
-app.mainloop()
+    for item in data:
+        types_dict.setdefault(item["TypeObject"], []).append([item["Name"], item["SeatsCount"]])
+
+    result_list = list()
+    for each in types_dict:
+        max_seats = max(types_dict[each], key=lambda x: x[1])
+        result_list.append((each, (max_seats[0], max_seats[1])))
+
+    result_list.sort()
+    for item in result_list:
+        print(f"{item[0]}: {item[1][0]}, {item[1][1]}")
