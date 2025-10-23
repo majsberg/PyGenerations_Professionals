@@ -114,21 +114,3 @@ with ZipFile('files/desktop.zip') as zip_file:
         elif indent == 0 and each.file_size > 0:
             print(f"{each.filename} {get_size(each.file_size)}")
 
-
-
-        #print(indent)
-        # if indent == 1:
-        #     print(f"{each.filename.split('/')[-2]}")
-        # elif indent == 1 and
-        #
-        # elif indent > 1 and each.file_size == 0:
-        #     print(f"{' ' * indent}{each.filename.split('/')[-2]}")
-        # elif 0 < each.file_size < 1024:
-        #     size = f'{round(each.file_size)} B'
-        #     print(f"{' ' * indent + '  '}{each.filename.split('/')[-1]} {size}")
-        # elif 1024 < each.file_size < 1024 ** 2:
-        #     size = f'{round(each.file_size / 1024)} KB'
-        #     print(f"{' ' * indent + '  '}{each.filename.split('/')[-1]} {size}")
-        # else:
-        #     size = f'{round(each.file_size / 1024 ** 2)} MB'
-        #     print(f"{' ' * indent + '  '}{each.filename.split('/')[-1]} {size}")
